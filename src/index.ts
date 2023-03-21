@@ -8,5 +8,5 @@ export * from "./mappings/destroyed";
 export * from "./mappings/stateChanged";
 export * from "./mappings/created";
 export * from "./mappings/memberRemoved";
-
+export * from "./mappings/unbondingPoolSlashed";
 import "@polkadot/api-augment";

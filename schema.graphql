@@ -80,3 +80,30 @@ type MemberRemoved @entity {
   member: String!
   timestamp: Date!
 }
+
+type RolesUpdated @entity {
+  id: ID!
+  extrinsic: String! @index(unique: true)
+  root: String
+  bouncer: String
+  nominator: String
+  timestamp: Date!
+}
+
+# The active balance of pool pool_id has been slashed to balance.
+type PoolSlashed @entity {
+  id: ID!
+  extrinsic: String! @index(unique: true)
+  poolId: Int!
+  balance: BigInt!
+  timestamp: Date!
+}
+
+# The unbond pool at era of pool pool_id has been slashed to balance.
+type UnbondingPoolSlashed @entity {
+  id: ID!
+  extrinsic: String! @index(unique: true)
+  poolId: Int!
+  era: Int!
+  balance: BigInt!
+}

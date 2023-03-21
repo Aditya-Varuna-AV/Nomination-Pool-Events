@@ -70,3 +70,13 @@ dataSources:
           filter:
             module: nominationPools
             method: MemberRemoved
+        - handler: handlePoolSlashed
+          kind: substrate/EventHandler
+          filter:
+            module: nominationPools
+            method: PoolSlashed
+        - handler: handleUnbondingPoolSlashed
+          kind: substrate/EventHandler
+          filter:
+            module: nominationPools
+            method: UnbondingPoolSlashed
