@@ -2,14 +2,81 @@
 # Add the `@index` or `@index(unique: true)` annotation after any non-key field
 # https://academy.subquery.network/build/graphql.html#indexing-by-non-primary-key-field
 
-type StarterEntity @entity {
-  id: ID! #id is a required field
-  field1: Int!
+type Created @entity {
+  id: ID!
+  extrinsic: String! @index(unique: true)
+  # account who created the pool
+  depositor: String!
+  # pool id
+  poolId: Int!
+  timestamp: Date!
+}
 
-  field2: String #field2 is an optional field
-  field3: BigInt
+## Bonded Event
+type Bonded @entity {
+  id: ID!
+  extrinsic: String! @index(unique: true)
+  # account who bonded
+  member: String!
+  # pool id who received the bond
+  poolId: Int!
+  # amount bonded
+  bonded: BigInt!
+  # true if the member is new to the pool
+  joined: Boolean!
+  # timestamp of the event
+  timestamp: Date!
+}
 
-  field4: Date
+type PaidOut @entity {
+  id: ID!
+  extrinsic: String! @index(unique: true)
+  member: String!
+  poolId: Int!
+  payout: BigInt!
+  timestamp: Date!
+}
 
-  field5: Boolean
+type Unbonded @entity {
+  id: ID!
+  extrinsic: String! @index(unique: true)
+  member: String!
+  poolId: Int!
+  balance: BigInt!
+  points: BigInt!
+  era: Int!
+  timestamp: Date!
+}
+
+type Withdrawn @entity {
+  id: ID!
+  extrinsic: String! @index(unique: true)
+  member: String!
+  poolId: Int!
+  balance: BigInt!
+  points: BigInt!
+  timestamp: Date!
+}
+
+type Destroyed @entity {
+  id: ID!
+  extrinsic: String! @index(unique: true)
+  poolId: Int!
+  timestamp: Date!
+}
+
+type StateChanged @entity {
+  id: ID!
+  extrinsic: String! @index(unique: true)
+  poolId: Int!
+  newState: String!
+  timestamp: Date!
+}
+
+type MemberRemoved @entity {
+  id: ID!
+  extrinsic: String! @index(unique: true)
+  poolId: Int!
+  member: String!
+  timestamp: Date!
 }

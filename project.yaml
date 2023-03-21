@@ -9,8 +9,7 @@ runner:
     name: "@subql/query"
     version: "*"
 description: >-
-  This project can be used as a starting point for developing your
-  SubQuery project
+  The Polkadot Nomination Pallet Event
 repository: "https://github.com/subquery/subql-starter"
 schema:
   file: ./schema.graphql
@@ -27,16 +26,47 @@ network:
   dictionary: "https://api.subquery.network/sq/subquery/polkadot-dictionary"
 dataSources:
   - kind: substrate/Runtime
-    startBlock: 1
+    startBlock: 13134593
     mapping:
       file: ./dist/index.js
       handlers:
-        - handler: handleBlock
-          kind: substrate/BlockHandler
-        - handler: handleEvent
+        - handler: handleBonded
           kind: substrate/EventHandler
           filter:
-            module: balances
-            method: Deposit
-        - handler: handleCall
-          kind: substrate/CallHandler
+            module: nominationPools
+            method: Bonded
+        - handler: handlePaidOut
+          kind: substrate/EventHandler
+          filter:
+            module: nominationPools
+            method: PaidOut
+        - handler: handleUnbonded
+          kind: substrate/EventHandler
+          filter:
+            module: nominationPools
+            method: Unbonded
+        - handler: handleWithdrawn
+          kind: substrate/EventHandler
+          filter:
+            module: nominationPools
+            method: Withdrawn
+        - handler: handleCreated
+          kind: substrate/EventHandler
+          filter:
+            module: nominationPools
+            method: Created
+        - handler: handleDestroyed
+          kind: substrate/EventHandler
+          filter:
+            module: nominationPools
+            method: Destroyed
+        - handler: handleStateChanged
+          kind: substrate/EventHandler
+          filter:
+            module: nominationPools
+            method: StateChanged
+        - handler: handleMemberRemoved
+          kind: substrate/EventHandler
+          filter:
+            module: nominationPools
+            method: MemberRemoved
